@@ -1,0 +1,39 @@
+#include <iostream>
+using namespace std;
+
+string nombreCompleto, nombre, apePat, apeMat;
+
+void separarNombre()
+{
+    int pini = 0;
+    int pfinal = nombreCompleto.find(" ", pini);
+
+    // Tomamos el substring para el nombre
+    nombre = nombreCompleto.substr(pini, pfinal);
+
+    // Avanzamos al siguiente espacio en blanco para el apellido paterno
+    pini = pfinal + 1;
+    pfinal = nombreCompleto.find(" ", pini);
+
+    // Tomamos el substr para el apellido paterno
+    apePat = nombreCompleto.substr(pini, pfinal - pini);
+
+    // El resto se considera como apellido materno
+    apeMat = nombreCompleto.substr(pfinal + 1);
+}
+
+int main(int argc, char *argv[])
+{
+    cout << "Ingrese su nombre completo: ";
+    getline(cin, nombreCompleto);
+
+    // Llamada a la función para separar el nombre completo
+    separarNombre();
+
+    // Imprimir nombre, apellido paterno y apellido materno
+    cout << "Nombre: " << nombre << endl;
+    cout << "Apellido paterno: " << apePat << endl;
+    cout << "Apellido materno: " << apeMat << endl;
+
+    return 0;
+}
