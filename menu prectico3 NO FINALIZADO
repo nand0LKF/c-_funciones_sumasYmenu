@@ -1,0 +1,132 @@
+#include <iostream>
+#include <cctype>  // Para usar las funciones de manipulación de caracteres
+
+using namespace std;
+
+// Funciones para las operaciones
+int sumaCadena(const string& cadena);
+string nombreCompleto(const string& cadena);
+string ofuscarCadena(const string& cadena);
+
+// Función principal
+int main() {
+	char opcion;
+	
+	do {
+		// Mostrar menú principal
+		cout << "MENU PRINCIPAL" << endl;
+		cout << "(1) - String suma de una cadena." << endl;
+		cout << "(2) - String Nombre completo." << endl;
+		cout << "(3) - String ofuscar." << endl;
+		cout << "(s/S) - Salir" << endl;
+		cout << "Ingrese su opción: ";
+		cin >> opcion;
+		
+		switch (opcion) {
+		case '1':
+		{
+			string cadena;
+			cout << "Ingrese la cadena para la suma: ";
+			cin >> cadena;
+			int resultado = sumaCadena(cadena);
+			cout << "Resultado de la suma: " << resultado << endl;
+		}
+		break;
+		
+		case '2':
+		{
+			string cadena;
+			cout << "Ingrese el nombre completo: ";
+			cin.ignore();  // Limpiar el buffer del teclado
+			getline(cin, cadena);
+			string resultado = nombreCompleto(cadena);
+			cout << "Nombre completo invertido: " << resultado << endl;
+		}
+		break;
+		
+		case '3':
+		{
+			string cadena;
+			cout << "Ingrese la cadena para ofuscar: ";
+			cin >> cadena;
+			string resultado = ofuscarCadena(cadena);
+			cout << "Cadena ofuscada: " << resultado << endl;
+		}
+		break;
+		
+		case 's':
+		case 'S':
+			cout << "Saliendo del programa." << endl;
+			break;
+			
+		default:
+			cout << "Opción no válida. Inténtelo de nuevo." << endl;
+		}
+		
+	} while (opcion != 's' && opcion != 'S');
+	
+	return 0;
+}
+
+// Función para la opción 1: Suma de una cadena
+int sumaCadena(const string& cadena) {
+	int suma = 0;
+	size_t inicio = 0;
+	size_t fin = cadena.find('+');
+	
+	while (fin != string::npos) {
+		suma += stoi(cadena.substr(inicio, fin - inicio));
+		inicio = fin + 1;
+		fin = cadena.find('+', inicio);
+	}
+	
+	suma += stoi(cadena.substr(inicio));
+	return suma;
+}
+
+// Función para la opción 2: Nombre completo invertido
+string nombreCompleto(const string& cadena) {
+	string resultado;
+	size_t inicio = cadena.find_last_not_of(' ');
+	
+	while (inicio != string::npos) {
+		size_t fin = cadena.find_last_of(' ', inicio);
+		resultado += cadena.substr(fin + 1, inicio - fin) + " ";
+		inicio = cadena.find_last_not_of(' ', fin - 1);
+	}
+	
+	resultado.pop_back();  // Eliminar el espacio adicional al final
+	return resultado;
+}
+
+// Función para la opción 3: Ofuscar cadena según tabla
+string ofuscarCadena(const string& cadena) {
+	string resultado;
+	
+	for (char caracter : cadena) {
+		switch (caracter) {
+		case 'A': case 'a':
+			resultado += "4";
+			break;
+		case 'E': case 'e':
+			resultado += "3";
+			break;
+		case 'I': case 'i':
+			resultado += "1";
+			break;
+		case 'O': case 'o':
+			resultado += "0";
+			break;
+		case 'S': case 's':
+			resultado += "5";
+			break;
+		case 'T': case 't':
+			resultado += "7";
+			break;
+		default:
+			resultado += caracter;
+		}
+	}
+	
+	return resultado;
+}
