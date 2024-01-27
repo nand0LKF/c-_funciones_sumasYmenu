@@ -1,5 +1,5 @@
 #include <iostream>
-#include <cctype>  // Para la función std::toupper. Comprueba si un carácter individual tiene un atributo determinado, o clasifica los atributos de cada carácter de un intervalo y los almacena en una matriz.
+#include <cctype>  // Para la función std::toupper.Comprueba si un carácter individual tiene un atributo determinado, o clasifica los atributos de cada carácter de un intervalo y los almacena en una matriz.
 
 using namespace std;
 
@@ -107,17 +107,50 @@ void ofuscarCadena()
     cout << "Cadena ofuscada: " << cadena << endl;
 }
 
+// Submenú para opciones relacionadas con ofuscar
+void submenuOfuscar()
+{
+    char opcion;
+
+    do
+    {
+        // Submenú para opciones relacionadas con ofuscar
+        cout << "SUBMENÚ - OFUSCAR" << endl;
+        cout << "(1) - Ofuscar una cadena." << endl;
+        cout << "(s/S) - Volver al menú principal" << endl;
+
+        cout << "Ingrese su elección: ";
+        cin >> opcion;
+
+        switch (opcion)
+        {
+        case '1':
+            ofuscarCadena();
+            break;
+
+        case 's':
+        case 'S':
+            cout << "Volviendo al menú principal." << endl;
+            break;
+
+        default:
+            cout << "Opción no válida." << endl;
+        }
+
+    } while (opcion != 's' && opcion != 'S');
+}
+
 int main()
 {
     char opcion;
 
     do
     {
-        // Menú principal
+        // Menú principal para seleccion del usuario
         cout << "MENU PRINCIPAL" << endl;
-        cout << "(1) - suma de una cadena." << endl;
-        cout << "(2) - Nombre completo." << endl;
-        cout << "(3) - ofuscar." << endl;
+        cout << "(1) - Suma de una cadena." << endl;
+        cout << "(2) - nombre completo." << endl;
+        cout << "(3) - Submenú de ofuscar." << endl;
         cout << "(s/S) - Salir" << endl;
 
         cout << "Ingrese su elección: ";
@@ -134,7 +167,7 @@ int main()
             break;
 
         case '3':
-            ofuscarCadena();
+            submenuOfuscar();
             break;
 
         case 's':
@@ -150,3 +183,4 @@ int main()
 
     return 0;
 }
+
